@@ -1,0 +1,105 @@
+@model Pizzas
+
+@{
+    var ModelName = "Pizza Details";
+    ViewData["Title"] = ModelName;
+}
+
+<h2>@ModelName</h2>
+<hr />
+
+<p>
+    <a asp-action="ListAll">Back to List</a>
+</p>
+
+<div class="thumbnail">
+    <img alt="@Model.Name" src="@Model.ImageUrl" height="800" width="800" class="img-responsive" >
+    <div class="caption-full">
+        <h2 class="pull-right">@Model.Price.ToString("c")</h2>
+        <h2>
+            <a href="">@Model.Name</a>
+        </h2>
+        <div>
+        <h4>Category: <b> @Model.Category.Name </b></h4>
+        <p>@Model.Description</p>
+        <p>
+            <h4><b>List of Ingredients:</b></h4>
+
+            @if (ViewBag.PizzaIngredients.Count > 0)
+        {
+                @foreach (var ing in ViewBag.PizzaIngredients)
+            {
+                    <div> @ing </div>
+                }
+            }
+            else
+            {
+                <div>No @Html.DisplayNameFor(Model => Model.PizzaIngredients) was found. </div>
+            }
+        </p>
+        <p>
+        @if (ViewBag.AverageReviewScore > 0)
+        {
+            <h4>Average Review Score: <b> @ViewBag.AverageReviewScore </b></h4>
+        }
+        else
+        {
+            <h4>No Reviews was found. </h4>
+        }
+
+        @if (ViewBag.AverageReviewScore <= 0 || ViewBag.AverageReviewScore > 5)
+        {
+            <img class="review-stars" src="~/images/0stars.png" alt="No Reviews was found." />
+        }
+        else if (ViewBag.AverageReviewScore > 4.5)
+        {
+            <img class="review-stars" src="~/images/5stars.png" alt="5 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 4.0)
+        {
+            <img class="review-stars" src="~/images/4.5stars.png" alt="4.5 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 3.5)
+        {
+            <img class="review-stars" src="~/images/4stars.png" alt="4 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 3.0)
+        {
+            <img class="review-stars" src="~/images/3.5stars.png" alt="3.5 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 2.5)
+        {
+            <img class="review-stars" src="~/images/3stars.png" alt="3 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 2.0)
+        {
+            <img class="review-stars" src="~/images/2.5stars.png" alt="2.5 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 1.5)
+        {
+            <img class="review-stars" src="~/images/2stars.png" alt="2 stars picture." />
+        }
+        else if (ViewBag.AverageReviewScore > 1.0)
+        {
+            <img class="review-stars" src="~/images/1.5stars.png" alt="1.5 stars picture." />
+        }
+        else
+        {
+            <img class="review-stars" src="~/images/1star.png" alt="1 star picture." />
+        }
+
+        </p>
+        <p>
+            <h4>
+                <a asp-controller="Reviews" asp-action="PizzaReviews" asp-route-pizzaId="@Model.Id">Reviews</a>
+            </h4>
+        </p>
+        </div>
+
+        <br />
+        <p class="button">
+            <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCart"
+                asp-route-pizzaId="@Model.Id">Add Pizza</a>
+        </p>
+    </div>
+</div>

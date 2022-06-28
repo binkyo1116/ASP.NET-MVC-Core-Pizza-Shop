@@ -1,0 +1,47 @@
+@model SearchPizzasViewModel
+
+@{
+    var pageName = "Pizzas Menu";
+    ViewData["Title"] = pageName;
+}
+
+<h2>@pageName</h2>
+<form asp-controller="Pizzas" asp-action="ListAll">
+    <div class="form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="SearchText" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SearchText" class="form-control" type="text" id="SearchFieldId" oninput="listSearchExamplesScript()" />
+                <span asp-validation-for="SearchText" class="text-danger"></span>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="SuggestOutput"></div>
+
+@if (Model.SearchText != null)
+{
+    <h4>Results</h4>
+}
+else
+{
+    <h4>All Pizzas</h4>
+}
+<hr />
+
+<div id="PizzaSummaryId">
+    @foreach (var pizza in Model.PizzaList)
+    {
+        @Html.Partial("PizzaSummary", pizza)
+    }
+</div>
+<br />
+

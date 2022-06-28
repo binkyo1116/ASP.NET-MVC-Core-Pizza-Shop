@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="nav navbar-nav navbar-right">
+        @if (User.IsInRole("Admin"))
+        {
+            <li><a asp-controller="Admin" asp-action="Index">Admin Page</a></li>
+        }
+        <li><a href="">Welcome, @User.Identity.Name</a></li>
+        
+        <li><a id="logoutLink" asp-controller="Account" asp-action="LogOut">Log Out</a></li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a id="registerLink" asp-controller="Account" asp-action="Register">Register</a></li>
+        <li><a id="loginLink" asp-controller="Account" asp-action="Login">Log in</a></li>
+    </ul>
+}
