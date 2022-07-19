@@ -22,6 +22,13 @@ namespace OnlinePizzaWebApplication.Controllers
             _adminRepo = adminRepo;
         }
 
+        public IActionResult SeedDatabaseAsync()
+        {
+            _adminRepo.ClearDatabase();
+            _adminRepo.SeedDatabase();
+            return RedirectToAction("Index", "Pizzas", null);
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -32,13 +39,5 @@ namespace OnlinePizzaWebApplication.Controllers
             _adminRepo.ClearDatabase();
             return RedirectToAction("Index", "Pizzas", null);
         }
-
-        public IActionResult SeedDatabaseAsync()
-        {
-            _adminRepo.ClearDatabase();
-            _adminRepo.SeedDatabase();
-            return RedirectToAction("Index", "Pizzas", null);
-        }
-
     }
 }
