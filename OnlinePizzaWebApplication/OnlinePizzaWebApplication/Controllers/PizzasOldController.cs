@@ -52,22 +52,6 @@ namespace OnlinePizzaWebApplication.Controllers
             return View();
         }
 
-        // POST: Pizzas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,ImageUrl,IsPizzaOfTheWeek")] Pizzas pizza)
-        {
-            if (ModelState.IsValid)
-            {
-                _pizzaRepo.Add(pizza);
-                await _pizzaRepo.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(pizza);
-        }
-
         // GET: Pizzas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -114,6 +98,22 @@ namespace OnlinePizzaWebApplication.Controllers
                         throw;
                     }
                 }
+                return RedirectToAction("Index");
+            }
+            return View(pizza);
+        }
+
+        // POST: Pizzas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,ImageUrl,IsPizzaOfTheWeek")] Pizzas pizza)
+        {
+            if (ModelState.IsValid)
+            {
+                _pizzaRepo.Add(pizza);
+                await _pizzaRepo.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(pizza);
