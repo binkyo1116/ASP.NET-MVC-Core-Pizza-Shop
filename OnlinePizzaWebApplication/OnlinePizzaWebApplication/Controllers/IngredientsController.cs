@@ -21,30 +21,6 @@ namespace OnlinePizzaWebApplication.Controllers
             _context = context;    
         }
 
-        // GET: Ingredients
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Ingredients.ToListAsync());
-        }
-
-        // GET: Ingredients/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ingredients = await _context.Ingredients
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
-            {
-                return NotFound();
-            }
-
-            return View(ingredients);
-        }
-
         // GET: Ingredients/Create
         public IActionResult Create()
         {
@@ -80,6 +56,30 @@ namespace OnlinePizzaWebApplication.Controllers
             {
                 return NotFound();
             }
+            return View(ingredients);
+        }
+
+        // GET: Ingredients
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Ingredients.ToListAsync());
+        }
+
+        // GET: Ingredients/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ingredients = await _context.Ingredients
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (ingredients == null)
+            {
+                return NotFound();
+            }
+
             return View(ingredients);
         }
 
