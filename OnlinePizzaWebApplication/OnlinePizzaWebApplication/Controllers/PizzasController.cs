@@ -28,24 +28,6 @@ namespace OnlinePizzaWebApplication.Controllers
             _categoryRepo = categoryRepo;
         }
 
-        // GET: Pizzas
-        public async Task<IActionResult> Index()
-        {
-            return View(await _pizzaRepo.GetAllIncludedAsync());
-        }
-
-        // GET: Pizzas
-        [AllowAnonymous]
-        public async Task<IActionResult> ListAll()
-        {
-            var model = new SearchPizzasViewModel()
-            {
-                PizzaList = await _pizzaRepo.GetAllIncludedAsync(),
-                SearchText = null
-            };
-
-            return View(model);
-        }
 
         private async Task<List<Pizzas>> GetPizzaSearchList(string userInput)
         {
@@ -115,6 +97,25 @@ namespace OnlinePizzaWebApplication.Controllers
             return View(model);
         }
 
+
+        // GET: Pizzas
+        public async Task<IActionResult> Index()
+        {
+            return View(await _pizzaRepo.GetAllIncludedAsync());
+        }
+
+        // GET: Pizzas
+        [AllowAnonymous]
+        public async Task<IActionResult> ListAll()
+        {
+            var model = new SearchPizzasViewModel()
+            {
+                PizzaList = await _pizzaRepo.GetAllIncludedAsync(),
+                SearchText = null
+            };
+
+            return View(model);
+        }
         // GET: Pizzas
         [AllowAnonymous]
         public async Task<IActionResult> ListCategory(string categoryName)
