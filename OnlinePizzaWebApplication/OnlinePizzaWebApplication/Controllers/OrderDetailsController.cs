@@ -27,29 +27,6 @@ namespace OnlinePizzaWebApplication.Controllers
             return View();
         }
 
-        // POST: OrderDetails/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderDetails/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: OrderDetails/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,6 +65,29 @@ namespace OnlinePizzaWebApplication.Controllers
             {
                 return View();
             }
+        }
+
+        // POST: OrderDetails/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: OrderDetails/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
         }
     }
 }
