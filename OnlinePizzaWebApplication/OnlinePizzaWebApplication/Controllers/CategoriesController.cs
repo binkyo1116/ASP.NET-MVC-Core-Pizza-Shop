@@ -31,22 +31,7 @@ namespace OnlinePizzaWebApplication.Controllers
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categories = await _categoryRepo.GetByIdAsync(id);
-
-            if (categories == null)
-            {
-                return NotFound();
-            }
-
-            return View(categories);
-        }
+        
 
         // GET: Categories/Create
         public IActionResult Create()
@@ -67,6 +52,22 @@ namespace OnlinePizzaWebApplication.Controllers
                 await _categoryRepo.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            return View(categories);
+        }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var categories = await _categoryRepo.GetByIdAsync(id);
+
+            if (categories == null)
+            {
+                return NotFound();
+            }
+
             return View(categories);
         }
 
