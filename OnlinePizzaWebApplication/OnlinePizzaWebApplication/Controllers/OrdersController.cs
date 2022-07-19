@@ -39,32 +39,6 @@ namespace OnlinePizzaWebApplication.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Checkout(Order order)
-        {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            order.UserId = userId;
-
-            var items = await _shoppingCart.GetShoppingCartItemsAsync();
-            _shoppingCart.ShoppingCartItems = items;
-
-            if (_shoppingCart.ShoppingCartItems.Count == 0)
-            {
-                ModelState.AddModelError("", "Your cart is empty, add some pizzas first");
-            }
-
-            if (ModelState.IsValid)
-            {
-                await _orderRepository.CreateOrderAsync(order);
-                await _shoppingCart.ClearCartAsync();
-
-                return RedirectToAction("CheckoutComplete");
-            }
-
-            return View(order);
-        }
-
-        [Authorize]
         public IActionResult CheckoutComplete()
         {
             ViewBag.CheckoutCompleteMessage = $"Thanks for your order, We'll deliver your pizzas soon!";
@@ -126,6 +100,32 @@ namespace OnlinePizzaWebApplication.Controllers
             ViewBag.OrderDetailsList = orderDetailsList;
 
             return View(orders);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Checkout(Order order)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            order.UserId = userId;
+
+            var items = await _shoppingCart.GetShoppingCartItemsAsync();
+            _shoppingCart.ShoppingCartItems = items;
+
+            if (_shoppingCart.ShoppingCartItems.Count == 0)
+            {
+                ModelState.AddModelError("", "Your cart is empty, add some pizzas first");
+            }
+
+            if (ModelState.IsValid)
+            {
+                await _orderRepository.CreateOrderAsync(order);
+                await _shoppingCart.ClearCartAsync();
+
+                return RedirectToAction("CheckoutComplete");
+            }
+
+            return View(order);
         }
 
         // GET: Orders/Create
