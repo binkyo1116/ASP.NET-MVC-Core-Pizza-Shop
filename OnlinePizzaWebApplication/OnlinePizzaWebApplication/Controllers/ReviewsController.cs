@@ -32,25 +32,6 @@ namespace OnlinePizzaWebApplication.Controllers
             return View(reviews);
         }
 
-        // GET: Reviews
-        [Authorize]
-        public async Task<IActionResult> Index()
-        {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-
-            if (isAdmin)
-            {
-                var allReviews = _context.Reviews.Include(r => r.Pizza).Include(r => r.User).ToList();
-                return View(allReviews);
-            }
-            else
-            {
-                var reviews = _context.Reviews.Include(r => r.Pizza).Include(r => r.User)
-                    .Where(r => r.User == user).ToList();
-                return View(reviews);
-            }
-        }
 
         // GET: Reviews
         [AllowAnonymous]
@@ -115,6 +96,26 @@ namespace OnlinePizzaWebApplication.Controllers
 
             //Partial view?
             return await result.ToListAsync();
+        }
+
+        // GET: Reviews
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+            if (isAdmin)
+            {
+                var allReviews = _context.Reviews.Include(r => r.Pizza).Include(r => r.User).ToList();
+                return View(allReviews);
+            }
+            else
+            {
+                var reviews = _context.Reviews.Include(r => r.Pizza).Include(r => r.User)
+                    .Where(r => r.User == user).ToList();
+                return View(reviews);
+            }
         }
 
         [HttpGet]
