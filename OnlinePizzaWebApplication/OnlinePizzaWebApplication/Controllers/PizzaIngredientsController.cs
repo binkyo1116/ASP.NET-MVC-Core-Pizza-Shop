@@ -21,32 +21,6 @@ namespace OnlinePizzaWebApplication.Controllers
             _context = context;    
         }
 
-        // GET: PizzaIngredients
-        public async Task<IActionResult> Index()
-        {
-            var appDbContext = _context.PizzaIngredients.Include(p => p.Ingredient).Include(p => p.Pizza);
-            return View(await appDbContext.ToListAsync());
-        }
-
-        // GET: PizzaIngredients/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var pizzaIngredients = await _context.PizzaIngredients
-                .Include(p => p.Ingredient)
-                .Include(p => p.Pizza)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (pizzaIngredients == null)
-            {
-                return NotFound();
-            }
-
-            return View(pizzaIngredients);
-        }
 
         // GET: PizzaIngredients/Create
         public IActionResult Create()
@@ -89,6 +63,33 @@ namespace OnlinePizzaWebApplication.Controllers
             }
             ViewData["IngredientId"] = new SelectList(_context.Ingredients, "Id", "Name", pizzaIngredients.IngredientId);
             ViewData["PizzaId"] = new SelectList(_context.Pizzas, "Id", "Name", pizzaIngredients.PizzaId);
+            return View(pizzaIngredients);
+        }
+
+        // GET: PizzaIngredients
+        public async Task<IActionResult> Index()
+        {
+            var appDbContext = _context.PizzaIngredients.Include(p => p.Ingredient).Include(p => p.Pizza);
+            return View(await appDbContext.ToListAsync());
+        }
+
+        // GET: PizzaIngredients/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pizzaIngredients = await _context.PizzaIngredients
+                .Include(p => p.Ingredient)
+                .Include(p => p.Pizza)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (pizzaIngredients == null)
+            {
+                return NotFound();
+            }
+
             return View(pizzaIngredients);
         }
 
