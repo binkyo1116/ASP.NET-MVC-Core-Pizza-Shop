@@ -32,6 +32,15 @@ namespace OnlinePizzaWebApplication.Controllers
             });
         }
 
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl)
+        {
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            });
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -55,14 +64,7 @@ namespace OnlinePizzaWebApplication.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
-        {
-            return View(new LoginViewModel
-            {
-                ReturnUrl = returnUrl
-            });
-        }
+        
 
         [HttpPost]
         [AllowAnonymous]
